@@ -1,0 +1,40 @@
+server:
+  port: 0
+  servlet:
+    context-path: /category
+#  version: v1.0
+
+spring:
+  # boot:
+  #   admin:
+  #     client:
+  #       url: http://admin-container:9988
+  application:
+    name: category-service
+  datasource:
+    url: jdbc:mysql://mysql-container:33061/category-db?createDatabaseIfNotExist=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+eureka:
+ client:
+   fetch-registry: true
+   register-with-eureka: true
+   serviceUrl:
+     defaultZone: http://eureka-container:9999/eureka/
+#   instance:
+#     preferIpAddress: true
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: "*"
+#     health:
+#       show-details: always

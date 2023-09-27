@@ -1,0 +1,16 @@
+com\adservice\Category\dto\CategoryDto.class
+com\adservice\Category\exceptions\NoDataException.class
+com\adservice\Category\exceptionhandler\ExceptionFormat.class
+com\adservice\Category\logging\Logging.class
+com\adservice\Category\model\Category.class
+com\adservice\Category\dto\CategoryDto$CategoryDtoBuilder.class
+com\adservice\Category\exceptions\InvalidIdException.class
+com\adservice\Category\exceptionhandler\ExceptionsHandler.class
+com\adservice\Category\model\Category$CategoryBuilder.class
+com\adservice\Category\service\CategoryServiceImpl.class
+com\adservice\Category\exceptions\MismatchException.class
+com\adservice\Category\CategoryApplication.class
+com\adservice\Category\controller\CategoryController.class
+com\adservice\Category\exceptionhandler\ExceptionFormat$ExceptionFormatBuilder.class
+com\adservice\Category\repo\CategoryRepo.class
+com\adservice\Category\service\CategoryService.class
