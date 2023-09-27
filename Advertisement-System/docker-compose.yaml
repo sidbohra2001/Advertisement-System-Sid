@@ -1,0 +1,59 @@
+version: '3'
+services:
+  mysql-container:
+    image: 'mysql:latest'
+    ports:
+      - '33061:3306'
+      - '33062:3306'
+      - '33063:3306'
+      - '33064:3306'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'ad-db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+  eureka-container:
+    depends_on:
+      - mysql-container
+    restart: always
+    build: ./eureka
+    ports:
+      - '9999:9999'
+  authentication:
+    depends_on:
+      - mysql-container
+      - eureka-container
+    restart: always
+    build: ./authentication
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
+  gateway:
+    depends_on:
+      - mysql-container
+      - eureka-container
+      - authentication
+    restart: always
+    build: ./gateway
+    ports:
+      - '8888:8888'
+  category:
+    depends_on:
+      - mysql-container
+      - eureka-container
+      - authentication
+      - gateway
+    restart: always
+    build: ./city
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
+  advertisement:
+    depends_on:
+      - mysql-container
+      - eureka-container
+      - authentication
+      - gateway
+    restart: always
+    build: ./movie
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
