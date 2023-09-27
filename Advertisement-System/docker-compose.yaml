@@ -44,7 +44,7 @@ services:
       - authentication
       - gateway
     restart: always
-    build: ./city
+    build: ./category
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
   advertisement:
@@ -54,6 +54,6 @@ services:
       - authentication
       - gateway
     restart: always
-    build: ./movie
+    build: ./advertisement
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
