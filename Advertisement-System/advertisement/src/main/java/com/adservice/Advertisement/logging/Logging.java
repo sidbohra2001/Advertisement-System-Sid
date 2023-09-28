@@ -24,10 +24,11 @@ public class Logging {
     }
 
     @Around("springBeanPointcut() || applicationPackagePointcut()")
-    public void logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object proceed;
         log.info("Entering : {}\nArguments : {}", joinPoint.getSignature().toShortString(), Arrays.toString(joinPoint.getArgs()));
         try{
-            joinPoint.proceed();
+            proceed = joinPoint.proceed();
         } catch (IllegalArgumentException e){
             log.error("Illegal argument(s): {} in {}.{}()", Arrays.toString(joinPoint.getArgs()),
                     joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
@@ -35,6 +36,7 @@ public class Logging {
         } finally{
             log.info("Exiting : {}\nReturning : {}", joinPoint.getSignature().toShortString(), joinPoint.getSignature().toShortString());
         }
+        return proceed;
     }
 
     @AfterThrowing(pointcut = "springBeanPointcut() || applicationPackagePointcut()", throwing = "e")

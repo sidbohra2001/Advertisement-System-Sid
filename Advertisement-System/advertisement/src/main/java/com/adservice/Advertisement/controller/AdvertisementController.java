@@ -45,9 +45,9 @@ public class AdvertisementController {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("?category={category}")
-    @Operation(summary = "Get Advertisement By Id")
-    public ResponseEntity<List<Advertisement>> getByCategory(@RequestParam("category") int category) throws NoDataException {
+    @GetMapping("/category/{category}")
+    @Operation(summary = "Get Advertisement By Category")
+    public ResponseEntity<List<Advertisement>> getByCategory(@PathVariable("category") int category) throws NoDataException {
         return new ResponseEntity<>(service.getByCategory(category), HttpStatus.OK);
     }
 
