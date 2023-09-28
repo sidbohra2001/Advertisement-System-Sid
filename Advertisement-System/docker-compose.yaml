@@ -20,6 +20,8 @@ services:
     build: ./eureka
     ports:
       - '9999:9999'
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
   authentication:
     depends_on:
       - mysql-container
@@ -27,6 +29,7 @@ services:
     restart: always
     build: ./authentication
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
   gateway:
     depends_on:
@@ -46,6 +49,7 @@ services:
     restart: always
     build: ./category
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'
   advertisement:
     depends_on:
@@ -56,4 +60,5 @@ services:
     restart: always
     build: ./advertisement
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'

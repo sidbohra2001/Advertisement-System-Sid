@@ -1,5 +1,6 @@
 package com.booking.gateway.filter;
 
+import com.booking.gateway.exceptions.UnauthorizedUserException;
 import com.booking.gateway.util.JwtUtil;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,15 +38,11 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 String role;
                 HttpMethod method = exchange.getRequest().getMethod();
                 String path = exchange.getRequest().getPath().toString();
-                try{
-                    role = jwtUtil.validateToken(authHeader);
-                    System.err.println(role);
-                    System.err.println(path);
-                    if(role.equals("USER") && path.contains("/category") && !method.equals(HttpMethod.GET)) throw new RuntimeException("Unauthorized User");
-                    if(role.equals("USER") && path.endsWith("/get") && method.equals(HttpMethod.GET)) throw new RuntimeException("Unauthorized User");
-                }catch (Exception e){
-                    throw new RuntimeException("Unauthorized User");
-                }
+                role = jwtUtil.validateToken(authHeader);
+                System.err.println(role);
+                System.err.println(path);
+                if(role.equals("USER") && path.contains("/category") && !method.equals(HttpMethod.GET)) throw new UnauthorizedUserException(HttpStatus.FORBIDDEN, "Unauthorized User");
+                if(role.equals("USER") && path.endsWith("/ad") && method.equals(HttpMethod.GET)) throw new UnauthorizedUserException(HttpStatus.FORBIDDEN, "Unauthorized User");
             }
             return chain.filter(exchange);
         });
