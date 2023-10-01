@@ -14,8 +14,6 @@ services:
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
   eureka-container:
-    depends_on:
-      - mysql-container
     restart: always
     build: ./eureka
     ports:
@@ -40,6 +38,8 @@ services:
     build: ./gateway
     ports:
       - '8888:8888'
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
   category:
     depends_on:
       - mysql-container
