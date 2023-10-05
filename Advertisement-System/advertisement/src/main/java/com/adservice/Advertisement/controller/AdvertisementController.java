@@ -52,6 +52,7 @@ public class AdvertisementController {
     }
 
     @DeleteMapping("/{id}")
+    // Be consistent in the approach, you can use ResponseEntity<Void> 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) throws InvalidIdException {
         service.delete(id);

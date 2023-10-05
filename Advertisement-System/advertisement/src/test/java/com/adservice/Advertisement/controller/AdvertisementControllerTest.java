@@ -38,6 +38,7 @@ class AdvertisementControllerTest {
     /**
      * Method under test: {@link AdvertisementController#add(AdvertisementDto)}
      */
+//      descriptive method names
     @Test
     void testAdd() throws Exception {
         Advertisement advertisement = new Advertisement();
@@ -73,6 +74,7 @@ class AdvertisementControllerTest {
      */
     @Test
     void testUpdate() throws Exception {
+        //We can use a helper method here or in another class to generate these objects, redundant code.
         Advertisement advertisement = new Advertisement();
         advertisement.setCategory(1);
         advertisement.setId(1);

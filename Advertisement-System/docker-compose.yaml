@@ -2,6 +2,7 @@ version: '3'
 services:
   mysql-container:
     image: 'mysql:latest'
+    # why mutliple ports?
     ports:
       - '33061:3306'
       - '33062:3306'
@@ -13,6 +14,7 @@ services:
       MYSQL_DATABASE: 'ad-db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
+  # why is eureka dependent on mysql?
   eureka-container:
     depends_on:
       - mysql-container
@@ -54,6 +56,7 @@ services:
       - authentication
       - gateway
     restart: always
+    # movie?
     build: ./movie
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ad-db?useSSL=false&allowPublicKeyRetrieval=true'

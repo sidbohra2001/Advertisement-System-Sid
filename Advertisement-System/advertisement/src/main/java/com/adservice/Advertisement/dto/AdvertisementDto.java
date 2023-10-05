@@ -10,10 +10,12 @@ import lombok.*;
 @Builder
 @ToString
 public class AdvertisementDto {
+    // validatiom?
     @JsonProperty("Category")
     private int category;
     @JsonProperty("Product")
     private String product;
+    // fieldname user is int?
     @JsonProperty("User")
     private int user;
     @JsonProperty("Price")

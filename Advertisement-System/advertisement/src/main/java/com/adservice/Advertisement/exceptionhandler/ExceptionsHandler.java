@@ -11,7 +11,7 @@ import org.springframework.web.client.RestClientResponseException;
 
 @ControllerAdvice
 public class ExceptionsHandler {
-
+// handle internal server error as well.
     @ExceptionHandler(InvalidIdException.class)
     public ResponseEntity<ExceptionFormat> handleInvalidIdException(InvalidIdException e){
         return new ResponseEntity<>(ExceptionFormat.builder().statusCode(HttpStatus.BAD_REQUEST.name()).message(e.getMessage()).build(), HttpStatus.BAD_REQUEST);

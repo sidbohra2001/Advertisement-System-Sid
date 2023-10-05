@@ -38,6 +38,7 @@ public class AdvertisementServiceImpl implements AdvertisementService{
     @Override
     public Advertisement update(Advertisement ad) throws InvalidIdException, RestClientResponseException {
         if(!repo.existsById(ad.getId())) throw new InvalidIdException("Invalid Id "+ad.getId());
+        // use constant, and instead of concatenation, we can use formatter.
         if(checkCategory(ad.getCategory())) throw new InvalidIdException("Category id "+ad.getCategory()+" is invalid");
         return repo.save(ad);
     }
@@ -79,8 +80,9 @@ public class AdvertisementServiceImpl implements AdvertisementService{
         if(!repo.existsById(id)) throw new InvalidIdException("Invalid Id "+id);
         repo.deleteById(id);
     }
-
+// add comments for private methods too.
     private boolean checkCategory(int category) throws RestClientResponseException {
+        // can be a configuration
         HttpStatusCode code = rest.getForEntity("http://CATEGORY-SERVICE/category/"+category, CategoryDto.class).getStatusCode();
         return code.is4xxClientError() || code.is5xxServerError();
     }
